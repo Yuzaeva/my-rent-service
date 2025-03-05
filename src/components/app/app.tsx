@@ -8,35 +8,42 @@ import { BrowserRouter, Route, Routes} from "react-router-dom";
 import { AppRoute } from "../../const";
 import { AuthorizationStatus } from "../../const";
 import {JSX} from 'react';
+import { FullOffer, OffersList } from "../../types/offer";
 
 type AppMainPageProps = {
     rentalOffersCount: number;
+    offersList: OffersList[];
+    offers: FullOffer[];
 }
 
-function App({rentalOffersCount}: AppMainPageProps): JSX.Element{
+function App({rentalOffersCount, offers, offersList}: AppMainPageProps): JSX.Element{
     return (
         <BrowserRouter>
         <Routes>
             <Route
             path={AppRoute.Main}
-            element={<MainPage rentalOffersCount={rentalOffersCount}/>}/>
+            element={<MainPage rentalOffersCount={rentalOffersCount} offersList={offersList}/>}/>
+            
             <Route
             path={ AppRoute.Favorites }
             element={
               <PrivateRoute
-                authorizationStatus={ AuthorizationStatus.NoAuth }
+                authorizationStatus={ AuthorizationStatus.Auth}
               >
-                <Favorites />
+                <Favorites offers={offers}/>
 
               </PrivateRoute>
             }
           />
+            
             <Route
-            path={AppRoute.Offer}
-            element={<Offer/>}/>
+            path={`${AppRoute.Offer}/:id`}
+            element={<Offer offers={offers}/>}/>
+            
             <Route
             path={AppRoute.Login}
             element={<Login/>}/>
+            
             <Route
             path="*"
             element={<PageNotFound/>}/>
