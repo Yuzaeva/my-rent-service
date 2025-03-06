@@ -8,6 +8,15 @@ type FavoriteCardProps = {
 
 function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
   return (
+            <ul className="favorites__list">
+              <li className="favorites__locations-items">
+                <div className="favorites__locations locations locations--current">
+                  <div className="locations__item">
+                    <a className="locations__item-link" href="#">
+                      <span>{offer.city.name}</span>
+                    </a>
+                  </div>
+                </div>
     <article className="favorites__card place-card">
                         {offer.isPremium && (
                             <div className="place-card__mark">
@@ -27,7 +36,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
                         </div>
                         <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
                           <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use href="#icon-bookmark"></use>
+                          <use xlinkHref="#icon-bookmark"></use>
                           </svg>
                           <span className="visually-hidden">In bookmarks</span>
                         </button>
@@ -44,6 +53,8 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
                       <p className="place-card__type">{offer.type}</p>
                     </div>
                   </article>
+                  </li>
+                  </ul>
   );
 }
 
