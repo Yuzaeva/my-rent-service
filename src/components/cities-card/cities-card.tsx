@@ -10,6 +10,10 @@ type CitiesCardProps = {
     isPremium: boolean;
     previewImage: string;
     rating: number;
+    className?: string; 
+    onHover: (title: string) => void;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
 }
 function CitiesCard({ id, title, type, price, isPremium, previewImage, rating }: CitiesCardProps): JSX.Element {
     const [, setOfferId] = useState('');
