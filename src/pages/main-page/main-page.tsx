@@ -3,7 +3,6 @@ import { CitiesCardList } from '../../components/cities-card-list/cities-card-li
 import { Logo } from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
-import { OffersList } from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import { getOffersByCity, sortOffersByType } from '../../utils';
 import { CitiesList } from '../../components/cities-list/cities-list';
@@ -19,6 +18,7 @@ interface Point {
 }
 
 function MainPage(): JSX.Element {
+  const [hoveredPointId, setHoveredPointId] = useState<string | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
 
   const selectedCity = useAppSelector((state) => state.city);
@@ -36,10 +36,6 @@ function MainPage(): JSX.Element {
 
   const [activeSort, setActiveSort] = useState<SortOffer>('Popular');
 
-  const [selectedOffer, setSelectedOffer] = useState<OffersList|undefined>(
-    undefined
-  );
-
   const points = useMemo(() => (
     selectedCityOffers.map((offer) => ({
       id: offer.id,
@@ -49,21 +45,12 @@ function MainPage(): JSX.Element {
     }))
   ), [selectedCityOffers]);
 
-  const handleListItemHover = (offerId: string) => {
-    const currentOffer = offersList.find((offer) => offer.id === offerId);
-
-    setSelectedOffer(currentOffer);
-    
-    if (currentOffer) {
-      setSelectedPoint({
-        id: currentOffer.id,
-        title: currentOffer.title,
-        lat: currentOffer.location.latitude,
-        lng: currentOffer.location.longitude,
-      });
-    } else {
-      setSelectedPoint(null);
-    }
+  const handleListItemHover = (offerId: string | null) => {
+    setHoveredPointId(offerId);
+    const currentOffer = offerId 
+      ? points.find((point) => point.id === offerId)
+      : null;
+    setSelectedPoint(currentOffer || null);
   };
 
   return (
@@ -118,7 +105,8 @@ function MainPage(): JSX.Element {
               <Map
                 city={currentCity?.location || CITIES_LOCATION[0].location}
                 points={points}
-                selectedPoint={selectedOffer?.id || null}
+                selectedPoint={selectedPoint?.id || null}
+                hoveredPointId={hoveredPointId}
                 height="100%"
                 width="100%"
               />
