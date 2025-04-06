@@ -3,22 +3,28 @@ import CitiesCard from '../cities-card/cities-card';
 
 type CitiesCardListProps = {
     offersList: OffersList[];
-    onCardHover?: (id: string | null) => void;
-    onListItemHover?: (offerId: string) => void;
+    onListItemHover?: (offerId: string | null) => void;
 };
 
-function CitiesCardList({offersList, onCardHover}: CitiesCardListProps){
+function CitiesCardList({ offersList, onListItemHover }: CitiesCardListProps) {
     return(
         <div className="cities__places-list places__list tabs__content">
-            {Array.from(offersList, (item) => 
-            <CitiesCard key={item.id} id={item.id} title={item.title} type={item.type} price={item.price}
-                previewImage={item.previewImage} isPremium={item.isPremium} rating={item.rating}
-                onMouseEnter={() => onCardHover?.(item.id)}
-                onMouseLeave={() => onCardHover?.(null)} onHover={function (title: string): void {
-                    throw new Error('Function not implemented.');
-                } }/>)}
+            {offersList.map((item) => (
+                <CitiesCard 
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    type={item.type}
+                    price={item.price}
+                    previewImage={item.previewImage}
+                    isPremium={item.isPremium}
+                    rating={item.rating}
+                    onMouseEnter={() => onListItemHover?.(item.id)}
+                    onMouseLeave={() => onListItemHover?.(null)}
+                />
+            ))}
         </div>
-        );
+    );
 }
 
-export {CitiesCardList};
+export { CitiesCardList };
