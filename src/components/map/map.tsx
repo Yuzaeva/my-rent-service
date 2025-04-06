@@ -76,6 +76,7 @@ const Map: React.FC<MapProps> = ({ city, points, selectedPoint, hoveredPointId, 
       markersRef.current = [];
 
       // Добавляем новые маркеры для всех точек
+      console.log(points)
       points.forEach((point) => {
         const isHovered = hoveredPointId === point.id;
         const isSelected = selectedPoint?.id === point.id;
