@@ -6,18 +6,18 @@ export const offersList: OffersList[] = [
         'title': 'Комната в хостеле',
         'type': 'room',
         'price': 100,
-        'previewImage': '../../img/1.1.png',
+        'previewImage': '../../img/1.1.jpg',
         'city': {
             'name': 'Amsterdam',
             'location': {
-                'latitude': 59.9343,
-                'longitude': 30.3351,
-                'zoom': 13
+                'latitude': 52.23,
+                'longitude': 4.54,
+                'zoom': 8
             }
         },
         'location': {
-                'latitude': 59.9321,
-                'longitude': 30.3361,
+                'latitude': 52.3909553943508,
+                'longitude': 4.85309666406198,
                 'zoom': 13
         },
         "isFavorite": false,
@@ -29,7 +29,7 @@ export const offersList: OffersList[] = [
         'title': 'Дом у моря',
         'type': 'house',
         'price': 700,
-        'previewImage':'../../img/2.2.png',
+        'previewImage':'../../img/2.2.jpg',
         'city': {
             'name': 'Amsterdam',
             'location': {
@@ -52,18 +52,18 @@ export const offersList: OffersList[] = [
         'title': 'Квартира в центре города',
         'type': 'apartment',
         'price': 500,
-        'previewImage': '../../img/3.1.png',
+        'previewImage': '../../img/3.1.jpg',
         'city': {
             'name': 'Amsterdam',
             'location': {
-                'latitude': 55.7558,
-                'longitude': 37.6173,
+                'latitude': 52.23,
+                'longitude': 4.54,
                 'zoom': 8
             }
         },
         'location': {
-                'latitude': 55.7559,
-                'longitude': 37.6123,
+                'latitude': 52.3909553943508,
+                'longitude':  4.929309666406198,
                 'zoom': 8
         },
         "isFavorite": false,
@@ -75,18 +75,18 @@ export const offersList: OffersList[] = [
         'title': 'Семейный отель',
         'type': 'hotel',
         'price': 700,
-        'previewImage': '../../img/4.1.png',
+        'previewImage': '../../img/4.1.jpg',
         'city': {
             'name': 'Amsterdam',
             'location': {
-                'latitude': 55.7558,
-                'longitude': 37.6173,
+                'latitude': 52.23,
+                'longitude': 4.54,
                 'zoom': 8
             }
         },
         'location': {
-                'latitude': 55.7572,
-                'longitude': 37.6150,
+                'latitude': 52.3809553943508,
+                'longitude': 4.939309666406198,
                 'zoom': 8
         },
         "isFavorite": true,
