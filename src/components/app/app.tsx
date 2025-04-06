@@ -3,7 +3,7 @@ import Favorites from "../../pages/favorites/favorites";
 import Login from "../../pages/login/login";
 import Offer from "../../pages/offer/offer";
 import { PrivateRoute } from "../private-route/private-route";
-import PageNotFound from "../../pages/page-not-found/page-not-found";
+import Error from "../../pages/error-page/error";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import { AppRoute } from "../../const";
 import { AuthorizationStatus } from "../../const";
@@ -16,13 +16,13 @@ type AppMainPageProps = {
     offers: FullOffer[];
 }
 
-function App({rentalOffersCount, offers, offersList}: AppMainPageProps): JSX.Element{
+function App({offers}: AppMainPageProps): JSX.Element{
     return (
         <BrowserRouter>
         <Routes>
             <Route
             path={AppRoute.Main}
-            element={<MainPage rentalOffersCount={rentalOffersCount} offersList={offersList}/>}/>
+            element={<MainPage />}/>
             
             <Route
             path={ AppRoute.Favorites }
@@ -46,7 +46,7 @@ function App({rentalOffersCount, offers, offersList}: AppMainPageProps): JSX.Ele
             
             <Route
             path="*"
-            element={<PageNotFound/>}/>
+            element={<Error/>}/>
             </Routes>
         </BrowserRouter>
     );
