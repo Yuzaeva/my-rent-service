@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Logo } from '../../components/logo/logo';
-import PageNotFound from '../page-not-found/page-not-found';
+import Error from "../../pages/error-page/error";
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/review-list/review-list';
 import { FullOffer, OffersList } from '../../types/offer';
@@ -10,6 +10,7 @@ import Map from '../../components/map/map';
 import 'leaflet/dist/leaflet.css';
 import { JSX } from 'react';
 import { NearbyOffersList } from '../../components/near-offer-list/near-offer-list';
+import { Link } from 'react-router-dom';
 
 
 type OfferProps = {
@@ -37,7 +38,7 @@ function Offer({ offers }: OfferProps): JSX.Element {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   if (!offer) {
-    return <PageNotFound />;
+    return <Error />;
   }
 
   const nearbyOffers = offers
@@ -77,12 +78,28 @@ function Offer({ offers }: OfferProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <header className="header">
+       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
               <Logo />
             </div>
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <span className="header__user-name user__name">Myemail@gmail.com</span>
+                    <span className="header__favorite-count">3</span>
+                  </Link>
+                </li>
+                <li className="header__nav-item">
+                  <a className="header__nav-link" href="#">
+                    <span className="header__signout">Sign out</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </header>
@@ -168,7 +185,11 @@ function Offer({ offers }: OfferProps): JSX.Element {
               </div>
 
               <ReviewsList reviews={reviewsState} />
-              <ReviewForm onSubmit={addReview} />
+              <ReviewForm 
+                onSubmit={(reviewText, rating) => {
+                  addReview(reviewText, rating);
+                }} 
+              />
             </div>
           </div>
 
