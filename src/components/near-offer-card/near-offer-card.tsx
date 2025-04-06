@@ -16,7 +16,6 @@ function NearbyOfferCard(props: NearbyOfferCardProps) {
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent) => {
-    // Переход только если кликнули не на кнопке
     if (!(e.target as HTMLElement).closest('.place-card__bookmark-button')) {
       navigate(`/offer/:id/${props.id}`);
     }
