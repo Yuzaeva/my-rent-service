@@ -1,12 +1,27 @@
-import { useState } from "react";
-import { JSX } from "react";
+import { useState, FormEvent, JSX } from "react";
 
-function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  onSubmit: (reviewText: string, rating: number) => void;
+};
+
+function ReviewForm({ onSubmit }: ReviewFormProps): JSX.Element {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (rating > 0 && review.length >= 50) {
+      setIsSubmitting(true);
+      onSubmit(review, rating);
+      setReview("");
+      setRating(0);
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <form className="reviews__form form">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <h2 className="reviews__title">Leave a Review</h2>
 
       <div className="reviews__rating-form form__rating">
@@ -18,7 +33,8 @@ function ReviewForm(): JSX.Element {
               type="radio"
               value={star}
               checked={rating === star}
-              onChange={() => setRating(star)}
+              onChange={() => !isSubmitting && setRating(star)}
+              disabled={isSubmitting}
             />
             <span className={`star-icon ${rating >= star ? "star--active" : ""}`}>★</span>
           </label>
@@ -30,7 +46,8 @@ function ReviewForm(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review}
-        onChange={(e) => setReview(e.target.value)}
+        onChange={(e) => !isSubmitting && setReview(e.target.value)}
+        disabled={isSubmitting}
       ></textarea>
 
       <div className="reviews__button-wrapper">
@@ -40,9 +57,9 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.length < 50 || rating === 0}
+          disabled={review.length < 50 || rating === 0 || isSubmitting}
         >
-          Submit
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </div>
     </form>
